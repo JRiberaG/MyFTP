@@ -18,6 +18,7 @@ public class ServerManager {
     private final ServerSocket serverSocket;
     private Socket socket;
     private String path;
+    private InputStream is;
 
     public ServerManager(int port) throws IOException {
         serverSocket = new ServerSocket(port);
@@ -43,17 +44,26 @@ public class ServerManager {
         return num;
     }
     
-    public void receive(int num) throws IOException, ClassNotFoundException, Exception {
-        for (int i = 0; i < num; i++) {
+    public void receive(int numOfFiles) throws IOException, ClassNotFoundException, Exception {
+        // Loop to get all the files
+        for (int i = 0; i < numOfFiles; i++) {
+            // Accepts a new connection if needed
             if (i != 0) {
                 socket = serverSocket.accept();
             }
+            // Receives the name of the file
             String fileName = receiveFileName();
+            
+            // Receives the size of the file
             long bytes = receiveFileSize();
+            
             System.out.println("File: " + fileName + ", " + bytes + " bytes");
+            
+            // Receives the file itself
             receiveFile(fileName, bytes);
             
-            if (i != num - 1) {
+            // Ends the connection if needed
+            if (i != numOfFiles - 1) {
                 socket.close();
             }
         }
@@ -97,22 +107,25 @@ public class ServerManager {
             }
         }
         
-        // Transform that ArrayList into an Array of ints
+        // Transform that ArrayList into an array of ints
         int values[] = new int[nums.size()];
         for (int i = 0; i < values.length; i++) {
             values[i] = nums.get(i);
         }
         
-        // Transform that Array of ints into an Array of Chars
+        // Transform that array of ints into an array of Chars
         char charValues[] = new char[values.length];
         for (int i = 0; i < charValues.length; i++) {
             charValues[i] = (char) values[i];
         }
         
+        // Convert that Array of chars into a String
         String str = new String(charValues);
+        
+        // Converts that String into a long
         long bytes = Long.parseLong(str);
         
-        // Returns a new String made from the Array of Chars
+        // Returns the size of the file
         return bytes;
     }    
     
@@ -122,25 +135,29 @@ public class ServerManager {
         strResult += "Status: Receiving file '" + fileName + "'...\n";
         txtArea.setText(strResult);
 
-        int c = 0;
-        while (c != -1) {
-            // Receives one byte
-            c = receiveInt();
-//            System.out.println("received: " +c);
-            if (c != -1) {
-                // Writes the file
-                fos.write(c);
-//                System.out.println("written: "+c);
-            }
+        byte[] buffer = new byte[65536];
+        int read;
+        // Reads the file
+        while((read = is.read(buffer)) != -1){
+            // Writes the file
+            fos.write(buffer, 0, read);
         }
+        
         // Closes the writer
         fos.close();
         
+        // Deletes the InputStream
+        is = null;
+        
+        // Checks whether the file is corrupted or not
         File f = new File(path + fileName);
+        // The new file has the same size as the value sent by the client
         if (f.length() == fileSize) {
             strResult += "Status: File received.\n";
             txtArea.setText(strResult);
-        } else {
+        }
+        // File is corrupted and we delete it
+        else {
             strResult += "Status: There has been a problem receiving the file: try again.\n";
             txtArea.setText(strResult);
             f.delete();
@@ -149,7 +166,9 @@ public class ServerManager {
     }
     
     private int receiveInt() throws IOException {
-        InputStream is = socket.getInputStream();
+        if (is == null){
+            is = socket.getInputStream();
+        }
         return is.read();
     }
 

@@ -7,10 +7,10 @@ import java.util.logging.Logger;
 import javax.swing.JList;
 import static main.JFrameMain.activatePanelConnection;
 import static main.JFrameMain.activatePanelRole;
-import static main.JFrameMain.cm;
 import static main.JFrameMain.setForNewConnection;
 import static main.JFrameMain.strResult;
 import static main.JFrameMain.txtArea;
+import static main.JFrameMain.clientManager;
 
 public class TransferClient extends Thread implements Runnable {
 
@@ -18,7 +18,7 @@ public class TransferClient extends Thread implements Runnable {
     private final ArrayList<String> filenames;
     private String path;
 
-
+    // Constructor
     public TransferClient(int numSelected, ArrayList<String> filenames, String path) {
         this.numSelected = numSelected;
         this.filenames = filenames;
@@ -28,24 +28,29 @@ public class TransferClient extends Thread implements Runnable {
     @Override
     public void run() {
         try {
-            cm.sendNumFiles(numSelected);
-            cm.receiveOk();
+            // Sends the number of files
+            clientManager.sendNumFiles(numSelected);
+            // Receives confirmation from the server
+            clientManager.receiveOk();
+            // Adds file separation if needed to the path
             if (!path.endsWith(File.separator)) {
                 path += File.separator;
             }
 
-            boolean needRecreate = false;
+            boolean needRecreate = false; // flag to create a new connection
+            // Iterates the files to send
             for (String filename : filenames) {
-                File file2 = new File(path + filename);
+                File file = new File(path + filename);
+                // Creates a new connection if needed
                 if (needRecreate) {
-                    cm.connect();
+                    clientManager.connect();
                 }
-                cm.sendFilename(filename);
+                clientManager.sendFilename(filename);
+                clientManager.sendFileSize(file);
+                clientManager.sendFile(file);
+                clientManager.close();
                 
-                cm.sendFileSize(file2);
-                
-                cm.sendFile(file2);
-                cm.close();
+                // Indicates that a new connection needs to be made
                 needRecreate = true;
             }
             

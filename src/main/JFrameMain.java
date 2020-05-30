@@ -12,21 +12,16 @@ import threads.TransferClient;
 import threads.TransferServer;
 
 /**
- * TODO:
- *      - Test to send the whole file instead of byte to byte
- *      - Comment
- *      - Add few things like signature, version, etc.
- *      - Clean the code (delete the useless comments, group with methods, etc.)
- *      - Screenshots and update readme
- * 
+ * @author  : Jorge Ribera
+ * @Date    : 30/05/20
  */
 public class JFrameMain extends javax.swing.JFrame {
     
     private static final int DEF_PORT = 5000;
-    public static ServerManager sm;
-    public static ClientManager cm;
-    public static TransferServer ts;
-    public static TransferClient tc;
+    public static ServerManager serverManager;
+    public static ClientManager clientManager;
+    public static TransferServer transferServer;
+    public static TransferClient transferClient;
     
     private static boolean asServer;
     public static String strResult = "";
@@ -49,6 +44,16 @@ public class JFrameMain extends javax.swing.JFrame {
     private void initComponents() {
 
         rbGroupRole = new javax.swing.ButtonGroup();
+        dialogAbout = new javax.swing.JDialog();
+        lblAboutDesc = new javax.swing.JLabel();
+        lblAboutVersion = new javax.swing.JLabel();
+        lblAboutName = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        lblAboutDate = new javax.swing.JLabel();
+        lblAboutGithub = new javax.swing.JLabel();
+        lblAboutAuthor = new javax.swing.JLabel();
+        dialogHow = new javax.swing.JDialog();
+        jLabel1 = new javax.swing.JLabel();
         panelRole = new javax.swing.JPanel();
         rbServer = new javax.swing.JRadioButton();
         rbClient = new javax.swing.JRadioButton();
@@ -76,18 +81,72 @@ public class JFrameMain extends javax.swing.JFrame {
         btnClearResults = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         txtArea = new javax.swing.JTextArea();
+        menuBar = new javax.swing.JMenuBar();
+        menuHowTo = new javax.swing.JMenu();
+        menuAbout = new javax.swing.JMenu();
+
+        dialogAbout.setTitle("About - MyFTP");
+        dialogAbout.setMinimumSize(new java.awt.Dimension(415, 300));
+        dialogAbout.setModal(true);
+        dialogAbout.setPreferredSize(new java.awt.Dimension(415, 300));
+        dialogAbout.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblAboutDesc.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        lblAboutDesc.setForeground(new java.awt.Color(102, 102, 102));
+        lblAboutDesc.setText("A free Client/Server app to share files between computers");
+        dialogAbout.getContentPane().add(lblAboutDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, 30));
+
+        lblAboutVersion.setFont(new java.awt.Font("Lucida Console", 0, 12)); // NOI18N
+        lblAboutVersion.setText("Version 1.0");
+        dialogAbout.getContentPane().add(lblAboutVersion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
+
+        lblAboutName.setFont(new java.awt.Font("Lucida Sans", 0, 24)); // NOI18N
+        lblAboutName.setText("MyFTP");
+        dialogAbout.getContentPane().add(lblAboutName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblAboutDate.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        lblAboutDate.setText("May 2020");
+        jPanel1.add(lblAboutDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
+
+        lblAboutGithub.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
+        lblAboutGithub.setText("https://www.github.com/jriberag");
+        jPanel1.add(lblAboutGithub, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
+
+        lblAboutAuthor.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
+        lblAboutAuthor.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
+        lblAboutAuthor.setText("Jorge Ribera");
+        jPanel1.add(lblAboutAuthor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
+
+        dialogAbout.getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 155, 250, 90));
+
+        dialogHow.setTitle("How to use - MyFTP");
+        dialogHow.setMinimumSize(new java.awt.Dimension(650, 350));
+        dialogHow.setPreferredSize(new java.awt.Dimension(650, 350));
+        dialogHow.setResizable(false);
+        dialogHow.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
+        jLabel1.setText("<html>\n     <head>\n          <style>\n                         span{color: #4d79ff}\n          </style>\n     </head>\n     <body>\n          <h2>How to use</h2>\n          <p>&nbsp;&nbsp; 1) Decide the role of this machine (Server-Client). <br/><br/>\n          <p>&nbsp;&nbsp;&nbsp; If you chose <b>Server</b>:<br/>\n                &nbsp;&nbsp;&nbsp;&nbsp; 2.1) Indicate the port, press <span>Connect</span> and wait for the Client to connect.<br/>\n                &nbsp;&nbsp;&nbsp;&nbsp; 3.1) Once the client connected, select the folder where you want the files to be downloaded to <br/>\n                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (you can left the field empty and the files will be downloaded where you have the .jar. <br/>\n                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Example: if you placed the .jar in your desktop, the files will be downloaded there).<br/>\n                &nbsp;&nbsp;&nbsp;&nbsp; 4.1) Press <span>Receive</span> and wait until all the files have been uploaded.</p><br/><br/>\n\n          <p>&nbsp;&nbsp;&nbsp; If you chose <b>Client</b>:<br/>\n                &nbsp;&nbsp;&nbsp;&nbsp; 2.2) Indicate the IP Address of the Server, the port and press <span>Connect</span>.<br/>\n                &nbsp;&nbsp;&nbsp;&nbsp; 3.2) Once you've connected to the Server, select the folder where the files you want to upload are.<br/>\n                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Then, all the files in the folder will be shown in the list.<br/>\n                &nbsp;&nbsp;&nbsp;&nbsp; 4.2) Pick the files that you want to upload, press <span>Send</span> and wait until the transfer is done.</p><br/><br/>\n     </body>\n</html>");
+        jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
+        jLabel1.setMinimumSize(new java.awt.Dimension(500, 500));
+        jLabel1.setPreferredSize(new java.awt.Dimension(500, 500));
+        dialogHow.getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 600, 390));
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyFTP");
-        setMinimumSize(new java.awt.Dimension(750, 620));
-        setPreferredSize(new java.awt.Dimension(750, 620));
+        setMinimumSize(new java.awt.Dimension(750, 650));
+        setPreferredSize(new java.awt.Dimension(750, 650));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        panelRole.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Role", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
+        panelRole.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Role", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 10))); // NOI18N
         panelRole.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         rbGroupRole.add(rbServer);
+        rbServer.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         rbServer.setSelected(true);
         rbServer.setText("Server");
         rbServer.addActionListener(new java.awt.event.ActionListener() {
@@ -98,32 +157,37 @@ public class JFrameMain extends javax.swing.JFrame {
         panelRole.add(rbServer, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 27, -1, -1));
 
         rbGroupRole.add(rbClient);
+        rbClient.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         rbClient.setText("Client");
         rbClient.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rbClientActionPerformed(evt);
             }
         });
-        panelRole.add(rbClient, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, -1, -1));
+        panelRole.add(rbClient, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 27, -1, -1));
 
         getContentPane().add(panelRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 220, 70));
 
-        panelConnection.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Connection config", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
+        panelConnection.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Connection config", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11))); // NOI18N
         panelConnection.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lblIP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblIP.setText("Server IP:");
         panelConnection.add(lblIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
 
+        lblPort.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblPort.setText("Port:");
         panelConnection.add(lblPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
+        etIP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         etIP.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 etIPActionPerformed(evt);
             }
         });
-        panelConnection.add(etIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 20, 170, -1));
+        panelConnection.add(etIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 25, 170, -1));
 
+        btnDisconnect.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnDisconnect.setText("Disconnect");
         btnDisconnect.setEnabled(false);
         btnDisconnect.addActionListener(new java.awt.event.ActionListener() {
@@ -134,6 +198,7 @@ public class JFrameMain extends javax.swing.JFrame {
         panelConnection.add(btnDisconnect, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 120, -1));
 
         btnConnect.setBackground(java.awt.SystemColor.activeCaption);
+        btnConnect.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnConnect.setText("Connect");
         btnConnect.setNextFocusableComponent(etPath);
         btnConnect.addActionListener(new java.awt.event.ActionListener() {
@@ -149,28 +214,30 @@ public class JFrameMain extends javax.swing.JFrame {
                 fetPortActionPerformed(evt);
             }
         });
-        panelConnection.add(fetPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 80, -1));
+        panelConnection.add(fetPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 68, 80, -1));
 
         lblErrIP.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblErrIP.setForeground(java.awt.Color.red);
         lblErrIP.setText("!");
         lblErrIP.setToolTipText("This field can't be empty!");
-        panelConnection.add(lblErrIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 20, 20, 30));
+        panelConnection.add(lblErrIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 25, 20, 30));
 
         lblErrPort.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblErrPort.setForeground(java.awt.Color.red);
         lblErrPort.setText("!");
         lblErrPort.setToolTipText("This field can't be empty!");
-        panelConnection.add(lblErrPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 70, 20, -1));
+        panelConnection.add(lblErrPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 68, 20, -1));
 
         getContentPane().add(panelConnection, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 290, 150));
 
         panelTransfer.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Transfer options", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
         panelTransfer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        lblSelectFiles.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblSelectFiles.setText("Select the file(s) to transfer:");
         panelTransfer.add(lblSelectFiles, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
+        etPath.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         etPath.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 etPathActionPerformed(evt);
@@ -185,10 +252,12 @@ public class JFrameMain extends javax.swing.JFrame {
         });
         panelTransfer.add(btnChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 47, -1, 30));
 
+        listFiles.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         scrollList.setViewportView(listFiles);
 
         panelTransfer.add(scrollList, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 210, 120));
 
+        btnClearTransfer.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnClearTransfer.setText("Clear");
         btnClearTransfer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -198,6 +267,7 @@ public class JFrameMain extends javax.swing.JFrame {
         panelTransfer.add(btnClearTransfer, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 105, -1));
 
         btnSend.setBackground(java.awt.SystemColor.activeCaption);
+        btnSend.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnSend.setText("Send");
         btnSend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -206,6 +276,7 @@ public class JFrameMain extends javax.swing.JFrame {
         });
         panelTransfer.add(btnSend, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 105, -1));
 
+        lblPath.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblPath.setText("Path of the file(s):");
         panelTransfer.add(lblPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
 
@@ -223,9 +294,10 @@ public class JFrameMain extends javax.swing.JFrame {
 
         getContentPane().add(panelTransfer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 260, 310));
 
-        panelResults.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Results", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
+        panelResults.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Results", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11))); // NOI18N
         panelResults.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        btnClearResults.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnClearResults.setText("Clear");
         btnClearResults.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -242,9 +314,28 @@ public class JFrameMain extends javax.swing.JFrame {
         txtArea.setRows(5);
         jScrollPane2.setViewportView(txtArea);
 
-        panelResults.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 380, 390));
+        panelResults.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 380, 510));
 
-        getContentPane().add(panelResults, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, 400, 440));
+        getContentPane().add(panelResults, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, 400, 560));
+
+        menuHowTo.setText("How to");
+        menuHowTo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuHowToMouseClicked(evt);
+            }
+        });
+        menuBar.add(menuHowTo);
+
+        menuAbout.setText("About");
+        menuAbout.setMargin(new java.awt.Insets(3, 2, 2, 2));
+        menuAbout.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                menuAboutMouseClicked(evt);
+            }
+        });
+        menuBar.add(menuAbout);
+
+        setJMenuBar(menuBar);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -266,7 +357,7 @@ public class JFrameMain extends javax.swing.JFrame {
             try {
                 activatePanelConnection();
                 clearTransfer();
-                sm.close();
+                serverManager.close();
                 btnDisconnect.setEnabled(false);
 
                 deactivatePanelTransfer();
@@ -283,7 +374,7 @@ public class JFrameMain extends javax.swing.JFrame {
             try {
                 activatePanelConnection();
                 clearTransfer();
-                cm.close();
+                clientManager.close();
                 strResult += "Status: Connection closed.\n";
                 txtArea.setText(strResult);
                 activatePanelRole();
@@ -303,6 +394,7 @@ public class JFrameMain extends javax.swing.JFrame {
         
         if (returnValue == JFileChooser.APPROVE_OPTION) {
             etPath.setText(openFileChooser.getSelectedFile().getAbsolutePath());
+            // If it's set has Client, fills the listBox with the files from within the path
             if(!asServer){
                 addFiles(new File(etPath.getText()));
             }
@@ -314,18 +406,19 @@ public class JFrameMain extends javax.swing.JFrame {
         if (asServer) {
             pathOk = true;
             try {
+                // Checks if a valid path has been selecter or not
                 if (!etPath.getText().isEmpty()) {
                     if (!new File(etPath.getText()).isDirectory()){
                         lblErrPath.setVisible(true);
                         pathOk = false;
                     } else {
                         lblErrPath.setVisible(false);
-                        sm.setPath(etPath.getText());
+                        serverManager.setPath(etPath.getText());
                     }
                 }
 
                 if (pathOk) {
-                    ts.setReceive(true);
+                    transferServer.setReceive(true);
                     
                     deactivatePanelTransfer();
                 }
@@ -335,33 +428,45 @@ public class JFrameMain extends javax.swing.JFrame {
             txtArea.setText(strResult);
         } else {
             pathOk = false;
+            // Checks 
             if (!etPath.getText().isEmpty()) {
                 lblErrPath.setVisible(false);
                 File file = new File(etPath.getText());
                 if (!file.isDirectory()){
                     lblErrPath.setVisible(true);
                     clearFiles();
-                } else {
+                }
+                // The path is a directory
+                else {
                     lblErrPath.setVisible(false);
+                    // Get the number of elements selected from the list
                     int numSelected = listFiles.getSelectedIndices().length;
+                    // Get those elements' indexes
                     int []selectedIndexes = listFiles.getSelectedIndices();
+                    // At least one file has been selected
                     if (numSelected > 0) {
                         lblErrFiles.setVisible(false);
 
                         try {
+                            // Iterates through those elements to get their filenames
                             ArrayList<String> filenames = new ArrayList<>();
                             for (Integer i : selectedIndexes) {
                                 filenames.add(listFiles.getModel().getElementAt(i));
                             }
-                            tc = new TransferClient(numSelected, filenames, etPath.getText());
-                            tc.start();
+                            
+                            // Creates a new thread with the info collected: number of elements,
+                            // the name of those elements and the path to store those elements
+                            transferClient = new TransferClient(numSelected, filenames, etPath.getText());
+                            transferClient.start();
                             
                             deactivatePanelTransfer();
                             
                         } catch (Exception ex) {
                             System.out.println(ex.toString());
                         }
-                    } else {
+                    } 
+                    // Not a single file has been selected
+                    else {
                         lblErrFiles.setVisible(true);
                         clearFiles();
                     }
@@ -400,6 +505,14 @@ public class JFrameMain extends javax.swing.JFrame {
     private void fetPortActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fetPortActionPerformed
         connect();
     }//GEN-LAST:event_fetPortActionPerformed
+
+    private void menuAboutMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuAboutMouseClicked
+        dialogAbout.setVisible(true);
+    }//GEN-LAST:event_menuAboutMouseClicked
+
+    private void menuHowToMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_menuHowToMouseClicked
+        dialogHow.setVisible(true);
+    }//GEN-LAST:event_menuHowToMouseClicked
 
     // <editor-fold defaultstate="collapsed" desc="Main & Variables">
     public static void main(String args[]) {
@@ -440,10 +553,20 @@ public class JFrameMain extends javax.swing.JFrame {
     private static javax.swing.JButton btnConnect;
     private static javax.swing.JButton btnDisconnect;
     private static javax.swing.JButton btnSend;
+    private javax.swing.JDialog dialogAbout;
+    private javax.swing.JDialog dialogHow;
     private static javax.swing.JTextField etIP;
     private static javax.swing.JTextField etPath;
     private static javax.swing.JFormattedTextField fetPort;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel lblAboutAuthor;
+    private javax.swing.JLabel lblAboutDate;
+    private javax.swing.JLabel lblAboutDesc;
+    private javax.swing.JLabel lblAboutGithub;
+    private javax.swing.JLabel lblAboutName;
+    private javax.swing.JLabel lblAboutVersion;
     static javax.swing.JLabel lblErrFiles;
     private javax.swing.JLabel lblErrIP;
     static javax.swing.JLabel lblErrPath;
@@ -453,6 +576,9 @@ public class JFrameMain extends javax.swing.JFrame {
     private static javax.swing.JLabel lblPort;
     static javax.swing.JLabel lblSelectFiles;
     private static javax.swing.JList<String> listFiles;
+    private javax.swing.JMenu menuAbout;
+    private javax.swing.JMenuBar menuBar;
+    private javax.swing.JMenu menuHowTo;
     private javax.swing.JPanel panelConnection;
     private javax.swing.JPanel panelResults;
     private static javax.swing.JPanel panelRole;
@@ -467,7 +593,7 @@ public class JFrameMain extends javax.swing.JFrame {
     
     // <editor-fold defaultstate="collapsed" desc="Sets">
     private void setAsServer() {
-        cm = null;
+        clientManager = null;
         
         asServer = true;
         
@@ -491,7 +617,7 @@ public class JFrameMain extends javax.swing.JFrame {
     }
     
     private void setAsClient() {
-        sm = null;
+        serverManager = null;
         
         asServer = false;
         
@@ -595,6 +721,7 @@ public class JFrameMain extends javax.swing.JFrame {
     }
     // </editor-fold>
 
+    // <editor-fold defaultstate="collapsed" desc="Cleaner methods">
     private void clearFields() {
         lblErrIP.setVisible(false);
         lblErrPort.setVisible(false);
@@ -606,6 +733,20 @@ public class JFrameMain extends javax.swing.JFrame {
         strResult = "";
         txtArea.setText(strResult);
     }
+    
+    private static void clearTransfer() {
+        etPath.setText("");
+        clearFiles();
+        lblErrPath.setVisible(false);
+        lblErrFiles.setVisible(false);
+    }
+
+    private static void clearFiles() {
+        DefaultListModel model = new DefaultListModel();
+        model.removeAllElements();
+        listFiles.setModel(model);
+    }
+    // </editor-fold>
     
     private void configFileChooser() {
         openFileChooser = new JFileChooser();
@@ -623,30 +764,18 @@ public class JFrameMain extends javax.swing.JFrame {
         listFiles.setModel(model);
     }
 
-    private static void clearTransfer() {
-        etPath.setText("");
-        clearFiles();
-        lblErrPath.setVisible(false);
-        lblErrFiles.setVisible(false);
-    }
-
-    private static void clearFiles() {
-        DefaultListModel model = new DefaultListModel();
-        model.removeAllElements();
-        listFiles.setModel(model);
-    }
-
     private void connect() {
         if (!fetPort.getText().isEmpty()) {
             lblErrPort.setVisible(false);
             
             if (asServer){
-                if (ts != null) {
-                    ts = null; 
+                // If there was a TransferServer created already, we delete it
+                if (transferServer != null) {
+                    transferServer = null; 
                 }
-                ts = new TransferServer(Integer.parseInt(fetPort.getText()));
-                ts.start();
-
+                
+                transferServer = new TransferServer(Integer.parseInt(fetPort.getText()));
+                transferServer.start();
 
                 // Deactivate some panels
                 deactivatePanelRole();
@@ -661,15 +790,11 @@ public class JFrameMain extends javax.swing.JFrame {
                 btnClearTransfer.setEnabled(true);
 
                 btnChooser.requestFocus();
-//                } catch (IOException ex) {
-//                    strResult += "Status: Couldn't connect with that port. Try a different one.\n";
-//                    txtArea.setText(strResult);
-//                }
             } else {
                 if (!etIP.getText().isEmpty()){
                     lblErrIP.setVisible(false);
                     try {
-                        cm = new ClientManager(etIP.getText(), Integer.parseInt(fetPort.getText()));
+                        clientManager = new ClientManager(etIP.getText(), Integer.parseInt(fetPort.getText()));
                         
                         deactivatePanelRole();
                         deactivatePanelConnection();

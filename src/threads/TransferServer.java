@@ -1,23 +1,22 @@
 package threads;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import static main.JFrameMain.activatePanelConnection;
 import static main.JFrameMain.activatePanelRole;
 import static main.JFrameMain.deactivatePanelTransfer;
 import static main.JFrameMain.setForNewConnection;
-import static main.JFrameMain.sm;
 import static main.JFrameMain.strResult;
 import static main.JFrameMain.txtArea;
 import managers.ServerManager;
+import static main.JFrameMain.serverManager;
 
 public class TransferServer extends Thread implements Runnable {
 
     private int numFiles;
-    private int port;
+    private final int port;
     private boolean receive;
 
+    // Constructor
     public TransferServer(int port) {
         this.port = port;
         this.numFiles = -1;
@@ -35,21 +34,31 @@ public class TransferServer extends Thread implements Runnable {
     @Override
     public void run() {        
         try {
-            sm = new ServerManager(port);
-            sm.accept();
+            // Creates the server
+            serverManager = new ServerManager(port);
+            // Accepts the client
+            serverManager.accept();
+            // Waits until the user presses 'Receive'
             while(!receive) {
                 Thread.sleep(100);
             }
-            numFiles = sm.receiveNumFiles();
+            // Gets the number of files that will be transfered
+            numFiles = serverManager.receiveNumFiles();
             if (numFiles != -1) {
-                sm.sendOk();
-                sm.receive(numFiles);
-                sm.closeSocket();
-            } else {
+                // Sends confirmation to the client
+                serverManager.sendOk();
+                // Receives all the files
+                serverManager.receive(numFiles);
+                // Closes the client socket
+                serverManager.closeSocket();
+            }
+            // Problem while trying to receive the # of files
+            else {
                 strResult += "Status: An error ocurred with the client connection.\n";
                 txtArea.setText(strResult);
             }
-            sm.close();
+            // Closes the server conection
+            serverManager.close();
             
             activatePanelConnection();
             setForNewConnection(true);
@@ -69,8 +78,8 @@ public class TransferServer extends Thread implements Runnable {
         } catch (Exception ex) {
             if (ex.toString().contains("CorruptedFile")) {
                 try {
-                    sm.closeSocket();
-                    sm.close();
+                    serverManager.closeSocket();
+                    serverManager.close();
                 } catch (IOException ex1) {}
                 deactivatePanelTransfer();
                 activatePanelConnection();
