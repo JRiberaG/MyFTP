@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JFileChooser;
 import managers.ClientManager;
 import managers.ServerManager;
@@ -89,61 +90,118 @@ public class JFrameMain extends javax.swing.JFrame {
         dialogAbout.setMinimumSize(new java.awt.Dimension(415, 300));
         dialogAbout.setModal(true);
         dialogAbout.setPreferredSize(new java.awt.Dimension(415, 300));
-        dialogAbout.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblAboutDesc.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
         lblAboutDesc.setForeground(new java.awt.Color(102, 102, 102));
         lblAboutDesc.setText("A free Client/Server app to share files between computers");
-        dialogAbout.getContentPane().add(lblAboutDesc, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, 30));
 
         lblAboutVersion.setFont(new java.awt.Font("Lucida Console", 0, 12)); // NOI18N
         lblAboutVersion.setText("Version 1.0");
-        dialogAbout.getContentPane().add(lblAboutVersion, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, -1, -1));
 
         lblAboutName.setFont(new java.awt.Font("Lucida Sans", 0, 24)); // NOI18N
         lblAboutName.setText("MyFTP");
-        dialogAbout.getContentPane().add(lblAboutName, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, -1, -1));
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblAboutDate.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
         lblAboutDate.setText("May 2020");
-        jPanel1.add(lblAboutDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, -1));
 
         lblAboutGithub.setFont(new java.awt.Font("Lucida Sans", 0, 12)); // NOI18N
         lblAboutGithub.setText("https://www.github.com/jriberag");
-        jPanel1.add(lblAboutGithub, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, -1, -1));
 
         lblAboutAuthor.setFont(new java.awt.Font("Lucida Sans", 0, 14)); // NOI18N
         lblAboutAuthor.setForeground(javax.swing.UIManager.getDefaults().getColor("Button.darkShadow"));
         lblAboutAuthor.setText("Jorge Ribera");
-        jPanel1.add(lblAboutAuthor, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, -1));
 
-        dialogAbout.getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 155, 250, 90));
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addComponent(lblAboutAuthor))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(lblAboutGithub))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(lblAboutDate))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(8, 8, 8)
+                .addComponent(lblAboutAuthor)
+                .addGap(13, 13, 13)
+                .addComponent(lblAboutGithub)
+                .addGap(5, 5, 5)
+                .addComponent(lblAboutDate))
+        );
+
+        javax.swing.GroupLayout dialogAboutLayout = new javax.swing.GroupLayout(dialogAbout.getContentPane());
+        dialogAbout.getContentPane().setLayout(dialogAboutLayout);
+        dialogAboutLayout.setHorizontalGroup(
+            dialogAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogAboutLayout.createSequentialGroup()
+                .addGap(160, 160, 160)
+                .addComponent(lblAboutVersion))
+            .addGroup(dialogAboutLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(lblAboutName))
+            .addGroup(dialogAboutLayout.createSequentialGroup()
+                .addGap(40, 40, 40)
+                .addComponent(lblAboutDesc))
+            .addGroup(dialogAboutLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        dialogAboutLayout.setVerticalGroup(
+            dialogAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogAboutLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(lblAboutVersion)
+                .addGap(7, 7, 7)
+                .addComponent(lblAboutName)
+                .addGap(11, 11, 11)
+                .addComponent(lblAboutDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(55, 55, 55)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         dialogHow.setTitle("How to use - MyFTP");
         dialogHow.setMinimumSize(new java.awt.Dimension(650, 350));
         dialogHow.setPreferredSize(new java.awt.Dimension(650, 350));
         dialogHow.setResizable(false);
-        dialogHow.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
         jLabel1.setText("<html>\n     <head>\n          <style>\n                         span{color: #4d79ff}\n          </style>\n     </head>\n     <body>\n          <h2>How to use</h2>\n          <p>&nbsp;&nbsp; 1) Decide the role of this machine (Server-Client). <br/><br/>\n          <p>&nbsp;&nbsp;&nbsp; If you chose <b>Server</b>:<br/>\n                &nbsp;&nbsp;&nbsp;&nbsp; 2.1) Indicate the port, press <span>Connect</span> and wait for the Client to connect.<br/>\n                &nbsp;&nbsp;&nbsp;&nbsp; 3.1) Once the client connected, select the folder where you want the files to be downloaded to <br/>\n                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (you can left the field empty and the files will be downloaded where you have the .jar. <br/>\n                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Example: if you placed the .jar in your desktop, the files will be downloaded there).<br/>\n                &nbsp;&nbsp;&nbsp;&nbsp; 4.1) Press <span>Receive</span> and wait until all the files have been uploaded.</p><br/><br/>\n\n          <p>&nbsp;&nbsp;&nbsp; If you chose <b>Client</b>:<br/>\n                &nbsp;&nbsp;&nbsp;&nbsp; 2.2) Indicate the IP Address of the Server, the port and press <span>Connect</span>.<br/>\n                &nbsp;&nbsp;&nbsp;&nbsp; 3.2) Once you've connected to the Server, select the folder where the files you want to upload are.<br/>\n                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Then, all the files in the folder will be shown in the list.<br/>\n                &nbsp;&nbsp;&nbsp;&nbsp; 4.2) Pick the files that you want to upload, press <span>Send</span> and wait until the transfer is done.</p><br/><br/>\n     </body>\n</html>");
         jLabel1.setVerticalAlignment(javax.swing.SwingConstants.TOP);
         jLabel1.setMinimumSize(new java.awt.Dimension(500, 500));
         jLabel1.setPreferredSize(new java.awt.Dimension(500, 500));
-        dialogHow.getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 600, 390));
+
+        javax.swing.GroupLayout dialogHowLayout = new javax.swing.GroupLayout(dialogHow.getContentPane());
+        dialogHow.getContentPane().setLayout(dialogHowLayout);
+        dialogHowLayout.setHorizontalGroup(
+            dialogHowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogHowLayout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        dialogHowLayout.setVerticalGroup(
+            dialogHowLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(dialogHowLayout.createSequentialGroup()
+                .addGap(10, 10, 10)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 390, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("MyFTP");
+        setIconImage(new ImageIcon("C:" + File.separator + "Users" + File.separator + "jribg" + File.separator + "Desktop" + File.separator + "icon.png").getImage());
         setMinimumSize(new java.awt.Dimension(750, 650));
         setPreferredSize(new java.awt.Dimension(750, 650));
         setResizable(false);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         panelRole.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Role", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 10))); // NOI18N
-        panelRole.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         rbGroupRole.add(rbServer);
         rbServer.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -154,7 +212,6 @@ public class JFrameMain extends javax.swing.JFrame {
                 rbServerActionPerformed(evt);
             }
         });
-        panelRole.add(rbServer, new org.netbeans.lib.awtextra.AbsoluteConstraints(11, 27, -1, -1));
 
         rbGroupRole.add(rbClient);
         rbClient.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -164,20 +221,35 @@ public class JFrameMain extends javax.swing.JFrame {
                 rbClientActionPerformed(evt);
             }
         });
-        panelRole.add(rbClient, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 27, -1, -1));
 
-        getContentPane().add(panelRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 220, 70));
+        javax.swing.GroupLayout panelRoleLayout = new javax.swing.GroupLayout(panelRole);
+        panelRole.setLayout(panelRoleLayout);
+        panelRoleLayout.setHorizontalGroup(
+            panelRoleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRoleLayout.createSequentialGroup()
+                .addGap(5, 5, 5)
+                .addComponent(rbServer)
+                .addGap(42, 42, 42)
+                .addComponent(rbClient)
+                .addContainerGap(17, Short.MAX_VALUE))
+        );
+        panelRoleLayout.setVerticalGroup(
+            panelRoleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelRoleLayout.createSequentialGroup()
+                .addGap(12, 12, 12)
+                .addGroup(panelRoleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(rbServer)
+                    .addComponent(rbClient))
+                .addContainerGap(22, Short.MAX_VALUE))
+        );
 
         panelConnection.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Connection config", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11))); // NOI18N
-        panelConnection.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblIP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblIP.setText("Server IP:");
-        panelConnection.add(lblIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
 
         lblPort.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblPort.setText("Port:");
-        panelConnection.add(lblPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, -1, -1));
 
         etIP.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         etIP.addActionListener(new java.awt.event.ActionListener() {
@@ -185,7 +257,6 @@ public class JFrameMain extends javax.swing.JFrame {
                 etIPActionPerformed(evt);
             }
         });
-        panelConnection.add(etIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 25, 170, -1));
 
         btnDisconnect.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnDisconnect.setText("Disconnect");
@@ -195,7 +266,6 @@ public class JFrameMain extends javax.swing.JFrame {
                 btnDisconnectActionPerformed(evt);
             }
         });
-        panelConnection.add(btnDisconnect, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 120, -1));
 
         btnConnect.setBackground(java.awt.SystemColor.activeCaption);
         btnConnect.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -206,7 +276,6 @@ public class JFrameMain extends javax.swing.JFrame {
                 btnConnectActionPerformed(evt);
             }
         });
-        panelConnection.add(btnConnect, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 120, -1));
 
         fetPort.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.NumberFormatter(new java.text.DecimalFormat("#0"))));
         fetPort.addActionListener(new java.awt.event.ActionListener() {
@@ -214,28 +283,69 @@ public class JFrameMain extends javax.swing.JFrame {
                 fetPortActionPerformed(evt);
             }
         });
-        panelConnection.add(fetPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 68, 80, -1));
 
         lblErrIP.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblErrIP.setForeground(java.awt.Color.red);
         lblErrIP.setText("!");
         lblErrIP.setToolTipText("This field can't be empty!");
-        panelConnection.add(lblErrIP, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 25, 20, 30));
 
         lblErrPort.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblErrPort.setForeground(java.awt.Color.red);
         lblErrPort.setText("!");
         lblErrPort.setToolTipText("This field can't be empty!");
-        panelConnection.add(lblErrPort, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 68, 20, -1));
 
-        getContentPane().add(panelConnection, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 100, 290, 150));
+        javax.swing.GroupLayout panelConnectionLayout = new javax.swing.GroupLayout(panelConnection);
+        panelConnection.setLayout(panelConnectionLayout);
+        panelConnectionLayout.setHorizontalGroup(
+            panelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConnectionLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(panelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelConnectionLayout.createSequentialGroup()
+                        .addComponent(lblIP)
+                        .addGap(16, 16, 16)
+                        .addComponent(etIP, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblErrIP, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelConnectionLayout.createSequentialGroup()
+                        .addComponent(lblPort)
+                        .addGap(43, 43, 43)
+                        .addComponent(fetPort, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblErrPort, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelConnectionLayout.createSequentialGroup()
+                        .addComponent(btnConnect, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(btnDisconnect, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
+        panelConnectionLayout.setVerticalGroup(
+            panelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelConnectionLayout.createSequentialGroup()
+                .addGap(9, 9, 9)
+                .addGroup(panelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelConnectionLayout.createSequentialGroup()
+                        .addGap(5, 5, 5)
+                        .addComponent(lblIP))
+                    .addComponent(etIP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblErrIP, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addGroup(panelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelConnectionLayout.createSequentialGroup()
+                        .addGap(2, 2, 2)
+                        .addComponent(lblPort))
+                    .addComponent(fetPort, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblErrPort))
+                .addGap(10, 10, 10)
+                .addGroup(panelConnectionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnConnect)
+                    .addComponent(btnDisconnect))
+                .addContainerGap(8, Short.MAX_VALUE))
+        );
 
         panelTransfer.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Transfer options", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
-        panelTransfer.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblSelectFiles.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblSelectFiles.setText("Select the file(s) to transfer:");
-        panelTransfer.add(lblSelectFiles, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 120, -1, -1));
 
         etPath.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         etPath.addActionListener(new java.awt.event.ActionListener() {
@@ -243,19 +353,15 @@ public class JFrameMain extends javax.swing.JFrame {
                 etPathActionPerformed(evt);
             }
         });
-        panelTransfer.add(etPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 50, 180, -1));
 
         btnChooser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnChooserActionPerformed(evt);
             }
         });
-        panelTransfer.add(btnChooser, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 47, -1, 30));
 
         listFiles.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         scrollList.setViewportView(listFiles);
-
-        panelTransfer.add(scrollList, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 210, 120));
 
         btnClearTransfer.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnClearTransfer.setText("Clear");
@@ -264,7 +370,6 @@ public class JFrameMain extends javax.swing.JFrame {
                 btnClearTransferActionPerformed(evt);
             }
         });
-        panelTransfer.add(btnClearTransfer, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 270, 105, -1));
 
         btnSend.setBackground(java.awt.SystemColor.activeCaption);
         btnSend.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -274,28 +379,73 @@ public class JFrameMain extends javax.swing.JFrame {
                 btnSendActionPerformed(evt);
             }
         });
-        panelTransfer.add(btnSend, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 105, -1));
 
         lblPath.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         lblPath.setText("Path of the file(s):");
-        panelTransfer.add(lblPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, -1, -1));
 
         lblErrPath.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblErrPath.setForeground(java.awt.Color.red);
         lblErrPath.setText("!");
         lblErrPath.setToolTipText("That's not a valid path! If this machine is acting as server, this field can be empty.");
-        panelTransfer.add(lblErrPath, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 46, 20, 30));
 
         lblErrFiles.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblErrFiles.setForeground(java.awt.Color.red);
         lblErrFiles.setText("!");
         lblErrFiles.setToolTipText("That's not a valid path! If this machine is acting as server, this field can be empty.");
-        panelTransfer.add(lblErrFiles, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 20, 30));
 
-        getContentPane().add(panelTransfer, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 260, 310));
+        javax.swing.GroupLayout panelTransferLayout = new javax.swing.GroupLayout(panelTransfer);
+        panelTransfer.setLayout(panelTransferLayout);
+        panelTransferLayout.setHorizontalGroup(
+            panelTransferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTransferLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addGroup(panelTransferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblPath)
+                    .addGroup(panelTransferLayout.createSequentialGroup()
+                        .addComponent(etPath, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(10, 10, 10)
+                        .addComponent(btnChooser)
+                        .addGap(10, 10, 10)
+                        .addComponent(lblErrPath, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblSelectFiles)
+                    .addGroup(panelTransferLayout.createSequentialGroup()
+                        .addComponent(scrollList, javax.swing.GroupLayout.PREFERRED_SIZE, 210, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(20, 20, 20)
+                        .addComponent(lblErrFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelTransferLayout.createSequentialGroup()
+                        .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(15, 15, 15)
+                        .addComponent(btnClearTransfer, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))))
+        );
+        panelTransferLayout.setVerticalGroup(
+            panelTransferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelTransferLayout.createSequentialGroup()
+                .addContainerGap(19, Short.MAX_VALUE)
+                .addComponent(lblPath)
+                .addGap(1, 1, 1)
+                .addGroup(panelTransferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(panelTransferLayout.createSequentialGroup()
+                        .addGap(4, 4, 4)
+                        .addComponent(etPath, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(panelTransferLayout.createSequentialGroup()
+                        .addGap(1, 1, 1)
+                        .addComponent(btnChooser, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lblErrPath, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(43, 43, 43)
+                .addComponent(lblSelectFiles)
+                .addGap(5, 5, 5)
+                .addGroup(panelTransferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(scrollList, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(panelTransferLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(lblErrFiles, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(10, 10, 10)
+                .addGroup(panelTransferLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnSend)
+                    .addComponent(btnClearTransfer)))
+        );
 
         panelResults.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(), "Results", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP, new java.awt.Font("Tahoma", 0, 11))); // NOI18N
-        panelResults.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btnClearResults.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         btnClearResults.setText("Clear");
@@ -304,7 +454,6 @@ public class JFrameMain extends javax.swing.JFrame {
                 btnClearResultsActionPerformed(evt);
             }
         });
-        panelResults.add(btnClearResults, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 10, 120, -1));
 
         txtArea.setEditable(false);
         txtArea.setBackground(new java.awt.Color(51, 51, 51));
@@ -314,9 +463,24 @@ public class JFrameMain extends javax.swing.JFrame {
         txtArea.setRows(5);
         jScrollPane2.setViewportView(txtArea);
 
-        panelResults.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 380, 510));
-
-        getContentPane().add(panelResults, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, 400, 560));
+        javax.swing.GroupLayout panelResultsLayout = new javax.swing.GroupLayout(panelResults);
+        panelResults.setLayout(panelResultsLayout);
+        panelResultsLayout.setHorizontalGroup(
+            panelResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelResultsLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(panelResultsLayout.createSequentialGroup()
+                .addGap(264, 264, 264)
+                .addComponent(btnClearResults, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        panelResultsLayout.setVerticalGroup(
+            panelResultsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(panelResultsLayout.createSequentialGroup()
+                .addGap(30, 30, 30)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 510, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(btnClearResults)
+        );
 
         menuHowTo.setText("How to");
         menuHowTo.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -336,6 +500,34 @@ public class JFrameMain extends javax.swing.JFrame {
         menuBar.add(menuAbout);
 
         setJMenuBar(menuBar);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(panelConnection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(panelTransfer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(10, 10, 10)
+                .addComponent(panelResults, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(20, 20, 20)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(panelRole, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(panelConnection, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(panelTransfer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(panelResults, javax.swing.GroupLayout.PREFERRED_SIZE, 560, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(16, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
