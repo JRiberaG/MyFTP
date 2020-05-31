@@ -1,10 +1,8 @@
 package threads;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.swing.JList;
 import static main.JFrameMain.activatePanelConnection;
 import static main.JFrameMain.activatePanelRole;
 import static main.JFrameMain.setForNewConnection;
@@ -61,7 +59,15 @@ public class TransferClient extends Thread implements Runnable {
             setForNewConnection(false);
             activatePanelRole();
         } catch (Exception ex) {
-            Logger.getLogger(TransferClient.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                ex.printStackTrace();
+                clientManager.close();
+            } catch (IOException ex1) {
+                ex1.printStackTrace();
+            }
+            activatePanelConnection();
+            setForNewConnection(false);
+            activatePanelRole();
         }
     }
 }

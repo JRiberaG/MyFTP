@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import static main.JFrameMain.strResult;
 import static main.JFrameMain.txtArea;
+import utils.Util;
 
 public class ClientManager {
     
@@ -27,6 +28,9 @@ public class ClientManager {
     }
     
     public void sendNumFiles(int numSelected) throws Exception {
+        strResult += "Status: Getting ready for the transfer...\n";
+        txtArea.setText(strResult);
+        
         sendInt(numSelected);
     }
     
@@ -66,19 +70,20 @@ public class ClientManager {
         txtArea.setText(strResult);
         
         byte[] buffer = new byte[65536];
-        
         int read = 0;
+        
+        long startTime = System.currentTimeMillis();
         while((read = fis.read(buffer)) != -1){
             os.write(buffer, 0, read);
         }
-        
+        long endTime = System.currentTimeMillis();
         // Closes the reader
         fis.close();
         
         // Deletes the OutputStream
         os = null;
 
-        strResult += "Status: File sent.\n";
+        strResult += "Status: File sent (" + Util.formatFileSize(file.length()) + " in " + Util.formatTime(endTime-startTime) + ").\n";
         txtArea.setText(strResult);
     }
     
@@ -102,5 +107,8 @@ public class ClientManager {
     public void receiveOk() throws IOException {
         InputStream is = socket.getInputStream();
         is.read();
+        
+        strResult += "Status: Ready for transfer!\n";
+        txtArea.setText(strResult);
     }
 }

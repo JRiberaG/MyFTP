@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import static main.JFrameMain.strResult;
 import static main.JFrameMain.txtArea;
 import exceptions.CorruptedFileException;
+import utils.Util;
 
 public class ServerManager {
     
@@ -56,8 +57,6 @@ public class ServerManager {
             
             // Receives the size of the file
             long bytes = receiveFileSize();
-            
-            System.out.println("File: " + fileName + ", " + bytes + " bytes");
             
             // Receives the file itself
             receiveFile(fileName, bytes);
@@ -137,12 +136,15 @@ public class ServerManager {
 
         byte[] buffer = new byte[65536];
         int read;
+        
+        long startTime = System.currentTimeMillis();
         // Reads the file
         while((read = is.read(buffer)) != -1){
             // Writes the file
             fos.write(buffer, 0, read);
         }
         
+        long endTime = System.currentTimeMillis();
         // Closes the writer
         fos.close();
         
@@ -153,7 +155,7 @@ public class ServerManager {
         File f = new File(path + fileName);
         // The new file has the same size as the value sent by the client
         if (f.length() == fileSize) {
-            strResult += "Status: File received.\n";
+            strResult += "Status: File received (" + Util.formatFileSize(fileSize) + " in " + Util.formatTime(endTime-startTime) + ").\n";
             txtArea.setText(strResult);
         }
         // File is corrupted and we delete it

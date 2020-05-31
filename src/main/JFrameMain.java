@@ -96,7 +96,7 @@ public class JFrameMain extends javax.swing.JFrame {
         lblAboutDesc.setText("A free Client/Server app to share files between computers");
 
         lblAboutVersion.setFont(new java.awt.Font("Lucida Console", 0, 12)); // NOI18N
-        lblAboutVersion.setText("Version 1.0");
+        lblAboutVersion.setText("Version 1.1");
 
         lblAboutName.setFont(new java.awt.Font("Lucida Sans", 0, 24)); // NOI18N
         lblAboutName.setText("MyFTP");
@@ -153,7 +153,7 @@ public class JFrameMain extends javax.swing.JFrame {
                 .addComponent(lblAboutDesc))
             .addGroup(dialogAboutLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         dialogAboutLayout.setVerticalGroup(
             dialogAboutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,12 +165,11 @@ public class JFrameMain extends javax.swing.JFrame {
                 .addGap(11, 11, 11)
                 .addComponent(lblAboutDesc, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(55, 55, 55)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 90, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         dialogHow.setTitle("How to use - MyFTP");
         dialogHow.setMinimumSize(new java.awt.Dimension(650, 350));
-        dialogHow.setPreferredSize(new java.awt.Dimension(650, 350));
         dialogHow.setResizable(false);
 
         jLabel1.setFont(new java.awt.Font("Trebuchet MS", 0, 12)); // NOI18N
@@ -595,17 +594,24 @@ public class JFrameMain extends javax.swing.JFrame {
 
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
         boolean pathOk;
+        String path = etPath.getText();
+        
         if (asServer) {
             pathOk = true;
             try {
                 // Checks if a valid path has been selecter or not
-                if (!etPath.getText().isEmpty()) {
-                    if (!new File(etPath.getText()).isDirectory()){
+                if (!path.isEmpty()) {
+                    if (!new File(path).isDirectory()){
                         lblErrPath.setVisible(true);
                         pathOk = false;
                     } else {
+                        // Adds a separator to the path if needed
+                        if (!path.endsWith(File.separator)) {
+                            path += File.separator;
+                        }
+                        
                         lblErrPath.setVisible(false);
-                        serverManager.setPath(etPath.getText());
+                        serverManager.setPath(path);
                     }
                 }
 
@@ -617,14 +623,13 @@ public class JFrameMain extends javax.swing.JFrame {
             } catch (Exception ex) {
                 System.err.println(ex.toString());
             }
-            txtArea.setText(strResult);
+//            txtArea.setText(strResult);
         } else {
             pathOk = false;
             // Checks 
-            if (!etPath.getText().isEmpty()) {
+            if (!path.isEmpty()) {
                 lblErrPath.setVisible(false);
-                File file = new File(etPath.getText());
-                if (!file.isDirectory()){
+                if (!new File(path).isDirectory()){
                     lblErrPath.setVisible(true);
                     clearFiles();
                 }
@@ -648,7 +653,7 @@ public class JFrameMain extends javax.swing.JFrame {
                             
                             // Creates a new thread with the info collected: number of elements,
                             // the name of those elements and the path to store those elements
-                            transferClient = new TransferClient(numSelected, filenames, etPath.getText());
+                            transferClient = new TransferClient(numSelected, filenames, path);
                             transferClient.start();
                             
                             deactivatePanelTransfer();
